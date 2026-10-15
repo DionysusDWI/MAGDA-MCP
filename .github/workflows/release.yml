@@ -1,0 +1,48 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Verify tag and recorded live acceptance
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json | ConvertFrom-Json).version
+          if ($env:GITHUB_REF_TYPE -ne 'tag' -or $env:GITHUB_REF_NAME -ne "v$version") { throw 'Run release from the matching version tag.' }
+          $live = Get-Content docs/releases/live-acceptance-0.1.0.json | ConvertFrom-Json
+          $permissions = Get-Content docs/releases/permission-acceptance-0.1.0.json | ConvertFrom-Json
+          if (!$live.passed -or !$permissions.passed) { throw 'Passing Windows live acceptance is required.' }
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+      - run: npm run check:package
+      - name: Compare rebuilt package with recorded Windows acceptance
+        shell: pwsh
+        run: |
+          $recorded = Get-Content docs/releases/package-acceptance-0.1.0.json | ConvertFrom-Json
+          $rebuilt = Get-Content artifacts/release/package-acceptance.json | ConvertFrom-Json
+          if (!$recorded.passed -or $recorded.sha256 -ne $rebuilt.sha256) { throw 'Rebuilt package differs from the package accepted on Windows with MAGDA.' }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-package
+          path: artifacts/release/
+      - name: Publish release assets
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = $env:GITHUB_REF_NAME
+          gh release view $tag *> $null
+          if ($LASTEXITCODE -ne 0) { gh release create $tag --verify-tag --title "MAGDA-MCP $tag" --notes-file docs/releases/v0.1.0.md }
+          if ($LASTEXITCODE -ne 0) { throw 'Release creation failed.' }
+          gh release upload $tag artifacts/release/*.tgz artifacts/release/SHA256SUMS artifacts/release/package-acceptance.json docs/releases/live-acceptance-0.1.0.json docs/releases/permission-acceptance-0.1.0.json docs/releases/v0.1.0.md docs/releases/package-acceptance-0.1.0.json --clobber
+          if ($LASTEXITCODE -ne 0) { throw 'Release asset upload failed.' }

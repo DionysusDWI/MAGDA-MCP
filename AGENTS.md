@@ -12,3 +12,5 @@ Target: MAGDA-MCP 0.1.0, Windows x64, Node.js 24+, MAGDA 0.20.2.
 - Run npm run check and npm run check:package before release. Run live checks only against a dedicated disposable project.
 - A release requires recorded live acceptance and package installation acceptance; skipped checks must stay explicit.
 - Retain existing Git history and MIT LICENSE. Commit coherent milestones; do not force push.
+- Pin upstream source references to a commit and repository path; distinguish research, mock and live evidence.
+- Keep the local package acceptance report outside the npm file allowlist to avoid a self-referential checksum.

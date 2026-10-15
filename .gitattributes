@@ -1,6 +1,8 @@
-* text=auto
+* text=auto eol=lf
 *.ts text eol=lf
 *.json text eol=lf
 *.md text eol=lf
 *.yml text eol=lf
 *.ps1 text eol=crlf
+docs/research/MAGDA-AI-INTERFACE-SURVEY.md -text
+docs/research/magda-tool-registry.tsv -text whitespace=cr-at-eol

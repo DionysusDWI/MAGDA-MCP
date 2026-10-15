@@ -32,7 +32,9 @@
     "LICENSE",
     "CHANGELOG.md",
     "docs/usage/",
-    "docs/releases/",
+    "docs/releases/v0.1.0.md",
+    "docs/releases/live-acceptance-0.1.0.json",
+    "docs/releases/permission-acceptance-0.1.0.json",
     "THIRD_PARTY_NOTICES.md"
   ],
   "scripts": {

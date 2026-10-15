@@ -1,0 +1,121 @@
+{
+  "version": "0.1.0",
+  "magdaVersion": "0.20.2",
+  "platform": "win32-x64",
+  "startedAt": "2026-10-15T08:54:58.041Z",
+  "mode": "workflow",
+  "checks": [
+    {
+      "name": "compatibility-and-full-catalog",
+      "status": "passed",
+      "detail": {
+        "nativeTools": 154,
+        "managementTools": 2,
+        "resources": 8,
+        "templates": 4,
+        "fullSchemaMatches": true
+      }
+    },
+    {
+      "name": "three-live-downstream-protocols",
+      "status": "passed",
+      "detail": [
+        "2026-07-28",
+        "2025-11-25",
+        "2025-06-18"
+      ]
+    },
+    {
+      "name": "new-client-default-read-only",
+      "status": "passed",
+      "detail": {
+        "readAllowed": true,
+        "writeDenied": true
+      }
+    },
+    {
+      "name": "disposable-project-guard",
+      "status": "passed",
+      "detail": {
+        "isolatedConfiguration": true,
+        "emptyCleanProject": true
+      }
+    },
+    {
+      "name": "track-revision-idempotency-and-notification",
+      "status": "passed",
+      "detail": {
+        "trackId": 1,
+        "idempotency": true,
+        "staleRevisionRejected": true,
+        "resourceInvalidationReceived": true
+      }
+    },
+    {
+      "name": "arrangement-midi-notes",
+      "status": "passed",
+      "detail": {
+        "clipId": 1,
+        "note": 60,
+        "resourceTemplatesRead": 4
+      }
+    },
+    {
+      "name": "device-parameter",
+      "status": "passed",
+      "detail": {
+        "catalogId": "magda_filter",
+        "parameterIndex": 0,
+        "changedValueReadBack": true
+      }
+    },
+    {
+      "name": "automation-point",
+      "status": "passed",
+      "detail": {
+        "laneId": 1,
+        "pointReadBack": true
+      }
+    },
+    {
+      "name": "session-scene-midi-and-launch",
+      "status": "passed",
+      "detail": {
+        "sceneId": 9,
+        "clipId": 2,
+        "launched": true
+      }
+    },
+    {
+      "name": "transport-play-seek-stop",
+      "status": "passed",
+      "detail": {
+        "playConfirmed": true,
+        "stopConfirmed": true
+      }
+    },
+    {
+      "name": "save-dedicated-project",
+      "status": "passed",
+      "detail": {
+        "saved": true
+      }
+    },
+    {
+      "name": "asynchronous-render-job",
+      "status": "passed",
+      "detail": {
+        "state": "completed",
+        "jobId": "job_56063253732c0a652167db089fc6de4c"
+      }
+    },
+    {
+      "name": "owned-project-cleanup",
+      "status": "passed"
+    }
+  ],
+  "completedAt": "2026-10-15T08:55:10.445Z",
+  "passed": true,
+  "node": "v24.15.0",
+  "windowsRelease": "10.0.26300"
+}

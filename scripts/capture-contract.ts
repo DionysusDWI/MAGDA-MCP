@@ -23,7 +23,8 @@ try {
   await writeFile(new URL('catalog.json', dir), serialized);
   await writeFile(new URL('system-describe.json', dir), JSON.stringify(description.structuredContent, null, 2) + '\n');
   const exeHash = createHash('sha256').update(await readFile(processInfo.executable)).digest('hex');
-  const manifest = { magdaVersion: MAGDA_VERSION, apiVersion: (description.structuredContent as Record<string, unknown>).apiVersion, capturedAt: new Date().toISOString(), authority: 'live-magda', verified: true, platform: 'win32-x64', upstreamTag: 'v0.20.2', upstreamCommit: '2917d82cacf4145d57550f96d8829fa25bf6dbf7', researchCommit: 'd637460b8a7e29d73a51aabfe980a787b98b47fa', executableSha256: exeHash, catalogSha256: createHash('sha256').update(serialized).digest('hex'), counts: { tools: tools.tools.length, resources: resources.resources.length, templates: templates.resourceTemplates.length }, protocolVersions: PROTOCOL_VERSIONS };
+  const prior = JSON.parse(await readFile(new URL('manifest.json', dir), 'utf8').catch(() => '{}')) as Record<string, unknown>;
+  const manifest = { ...prior, magdaVersion: MAGDA_VERSION, apiVersion: (description.structuredContent as Record<string, unknown>).apiVersion, capturedAt: new Date().toISOString(), authority: 'live-magda', verified: true, platform: 'win32-x64', upstreamTag: 'v0.20.2', upstreamCommit: '2917d82cacf4145d57550f96d8829fa25bf6dbf7', researchCommit: 'd637460b8a7e29d73a51aabfe980a787b98b47fa', executableSha256: exeHash, catalogSha256: createHash('sha256').update(serialized).digest('hex'), counts: { tools: tools.tools.length, resources: resources.resources.length, templates: templates.resourceTemplates.length }, protocolVersions: PROTOCOL_VERSIONS };
   await writeFile(new URL('manifest.json', dir), JSON.stringify(manifest, null, 2) + '\n');
   console.log(JSON.stringify(manifest, null, 2));
 } finally { await client.close(); }

@@ -1,0 +1,55 @@
+{
+  "version": "0.1.0",
+  "magdaVersion": "0.20.2",
+  "platform": "win32-x64",
+  "startedAt": "2026-10-15T08:58:12.888Z",
+  "mode": "read-only",
+  "checks": [
+    {
+      "name": "compatibility-and-full-catalog",
+      "status": "passed",
+      "detail": {
+        "nativeTools": 154,
+        "managementTools": 2,
+        "resources": 8,
+        "templates": 4,
+        "fullSchemaMatches": true
+      }
+    },
+    {
+      "name": "three-live-downstream-protocols",
+      "status": "passed",
+      "detail": [
+        "2026-07-28",
+        "2025-11-25",
+        "2025-06-18"
+      ]
+    },
+    {
+      "name": "new-client-default-read-only",
+      "status": "passed",
+      "detail": {
+        "readAllowed": true,
+        "writeDenied": true
+      }
+    },
+    {
+      "name": "same-identity-after-scope-revocation",
+      "status": "passed",
+      "detail": {
+        "identity": "MAGDA-MCP/live-acceptance",
+        "writeDenied": true,
+        "activation": "isolated MAGDA restart with read-only configuration"
+      }
+    }
+  ],
+  "completedAt": "2026-10-15T08:58:18.102Z",
+  "passed": true,
+  "sameProcessGuiRevocation": {
+    "status": "not-verified",
+    "reason": "The hidden isolated MAGDA window could not be activated by Windows automation; failed to activate captured window."
+  },
+  "normalConfigurationChanged": false,
+  "node": "v24.15.0",
+  "windowsRelease": "10.0.26300"
+}

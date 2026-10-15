@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+      - run: npm run check:package
+      - name: Compare rebuilt package with recorded Windows acceptance
+        shell: pwsh
+        run: |
+          $recorded = Get-Content docs/releases/package-acceptance-0.1.0.json | ConvertFrom-Json
+          $rebuilt = Get-Content artifacts/release/package-acceptance.json | ConvertFrom-Json
+          if (!$recorded.passed -or $recorded.sha256 -ne $rebuilt.sha256) { throw 'Rebuilt package differs from the package accepted on Windows with MAGDA.' }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package-acceptance
+          path: artifacts/release/
