@@ -1,11 +1,11 @@
 {
   "version": "0.1.0",
   "passed": true,
-  "completedAt": "2026-10-15T09:07:04.007Z",
+  "completedAt": "2026-10-15T09:25:22.908Z",
   "platform": "win32-x64",
   "node": "v24.15.0",
   "tarball": "dionysusdwi-magda-mcp-0.1.0.tgz",
-  "sha256": "4211ee596b3ece10a33cb0cf7ea5275156e60cfd4243784f358381adff7e6d13",
+  "sha256": "cb1a3b37957f9c393b9ed1a45b6ff7f322e0e6bee007d424ebad760076f73bff",
   "files": 38,
   "cleanInstallOutsideRepository": true,
   "checks": [

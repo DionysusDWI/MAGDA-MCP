@@ -41,13 +41,13 @@
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.test.json",
     "lint": "eslint .",
-    "test": "vitest run",
+    "test": "npm run build && vitest run",
     "test:unit": "vitest run tests/unit",
-    "test:integration": "vitest run tests/integration",
+    "test:integration": "npm run build && vitest run tests/integration",
     "test:live": "tsx scripts/live-test.ts",
     "capture:contract": "tsx scripts/capture-contract.ts",
     "check:package": "tsx scripts/check-package.ts",
-    "check": "npm run typecheck && npm run lint && npm test && npm run build",
+    "check": "npm run typecheck && npm run lint && npm test",
     "prepack": "npm run build"
   },
   "dependencies": {

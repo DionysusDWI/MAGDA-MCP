@@ -8,7 +8,7 @@ npm run check
 npm run check:package
 ~~~
 
-check 依次执行源码与脚本/测试类型检查、ESLint、Vitest、TypeScript 构建。测试 mock 的进程检查替身仅存在于 tests/fixtures/gateway-child.ts；生产 CLI 没有跳过版本检查的开关。
+check 依次执行源码与脚本/测试类型检查、ESLint、TypeScript 构建、Vitest；测试前构建保证干净检出时也能启动生产 CLI。测试 mock 的进程检查替身仅存在于 tests/fixtures/gateway-child.ts；生产 CLI 没有跳过版本检查的开关。
 
 协议矩阵为三种下游 × 三种上游，共九种组合。每种组合用官方 SDK 启动实际 stdio 子进程，核对全量工具与 Schema、业务参数、结果和元数据，并验证资源读取及订阅通知。模拟业务响应只证明转发保真，不证明 154 个工具都执行过实机业务。
 
@@ -26,7 +26,7 @@ npm run test:live -- <脚本输出的dataDir>
 npm run check:package -- --live-data-dir <脚本输出的dataDir>
 ~~~
 
-launch-live 使用子进程专用 MAGDA_CONFIG_FILE、MAGDA_DATA_DIR 等变量；所有设置、发现记录、工程和渲染都位于 artifacts/live。仅 MAGDA-MCP/live-acceptance 获得 edit/transport/session。实机脚本在写入前检查隔离目录、未保存且干净的工程、空轨道；完成后停止播放并关闭自有工程。守卫失败时先检查工程，不能放宽守卫自动覆盖。
+launch-live 使用子进程专用 MAGDA_CONFIG_FILE、MAGDA_DATA_DIR 等变量；所有设置、发现记录、工程和渲染都位于 artifacts/live。隔离配置明确使用 magda 音频引擎并关闭首次引擎选择提示，避免隐藏对话框阻塞启动。仅 MAGDA-MCP/live-acceptance 获得 edit/transport/session。实机脚本在写入前检查隔离目录、未保存且干净的工程、空轨道；完成后停止播放并关闭自有工程。守卫失败时先检查工程，不能放宽守卫自动覆盖。
 
 实机报告输出 artifacts/live/acceptance.json。只读/撤权检查可在隔离实例权限改为 read 后运行 npm run test:live -- <dataDir> --readonly；报告会注明权限变更的激活方式。若在 GUI 中撤权，须另外记录同一进程、同一客户端后续请求的观测结果，不能把重启后生效写成即时撤权验证。
 

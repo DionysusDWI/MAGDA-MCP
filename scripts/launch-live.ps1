@@ -21,6 +21,8 @@ $config = @{
     autoCheckUpdates = $false
     autoSaveEnabled = $false
     showRightPanel = $false
+    audioEngine = 'magda'
+    skipMagdaEnginePrompt = $true
 }
 $configPath = Join-Path $liveDirectory 'config.json'
 $config | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $configPath -Encoding utf8
