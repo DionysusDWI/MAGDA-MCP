@@ -1,0 +1,12 @@
+{
+  "archivedAt": "2026-10-15",
+  "originalDirectory": "P:\\Literature_Lab\\.Default_Mixed-task-workspace\\tasks\\20261015-02_magda-ai-tool-surface\\out",
+  "files": {
+    "docs/research/MAGDA-AI-INTERFACE-SURVEY.md": "7373e3f7c603a505a2cdeb93ab0e8d5a0af2b92bdd01b354faac6988adb59c88",
+    "docs/research/magda-tool-registry.tsv": "d086180236e3a4e6e8f4acb98cd7b6546560919ecc6f27d7910bee89c604fbf6"
+  },
+  "sourceArchiveSha256": "402c924fd4a710496bbc70502238ea645ccfdea72c131e6f1486c7b9c1b06cde",
+  "installerSha256": "f5386514eb469dcc0005a4e262043630f1ef305d7bd5a7059a6ba25e3b37e496",
+  "upstreamCommit": "2917d82cacf4145d57550f96d8829fa25bf6dbf7",
+  "researchCommit": "d637460b8a7e29d73a51aabfe980a787b98b47fa"
+}

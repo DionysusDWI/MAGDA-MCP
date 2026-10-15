@@ -1,0 +1,29 @@
+import { writeFile, mkdir, readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { Client, StreamableHTTPClientTransport } from '@modelcontextprotocol/client';
+import { discover, selectEndpoint } from '../src/discovery/index.js';
+import { inspectWindowsProcess } from '../src/platform/windows/process.js';
+import { VERSION, MAGDA_VERSION, PROTOCOL_VERSIONS } from '../src/constants.js';
+const dataDir = process.argv[2];
+if (!dataDir) throw new Error('Usage: npm run capture:contract -- <MAGDA-data-directory>');
+const endpoint = selectEndpoint(await discover({ dataDir }));
+const processInfo = await inspectWindowsProcess(endpoint.pid);
+if (processInfo?.version !== MAGDA_VERSION) throw new Error('Expected a verified MAGDA 0.20.2 process.');
+const client = new Client({ name: 'MAGDA-MCP/contract-capture', version: VERSION }, { versionNegotiation: { mode: 'auto' }, supportedProtocolVersions: PROTOCOL_VERSIONS });
+client.onerror = () => {};
+try {
+  await client.connect(new StreamableHTTPClientTransport(new URL(endpoint.url), { authProvider: { token: async () => endpoint.token }, requestInit: { redirect: 'error' }, onInsufficientScope: 'throw', maxStepUpRetries: 0 }));
+  const [tools, resources, templates] = await Promise.all([client.listTools(), client.listResources(), client.listResourceTemplates()]);
+  const description = await client.callTool({ name: 'system.describe', arguments: {} });
+  if (description.isError || !description.structuredContent) throw new Error('system.describe failed');
+  const dir = new URL('../contracts/magda/0.20.2/', import.meta.url);
+  await mkdir(dir, { recursive: true });
+  const catalog = { tools: tools.tools, resources: resources.resources, resourceTemplates: templates.resourceTemplates };
+  const serialized = JSON.stringify(catalog, null, 2) + '\n';
+  await writeFile(new URL('catalog.json', dir), serialized);
+  await writeFile(new URL('system-describe.json', dir), JSON.stringify(description.structuredContent, null, 2) + '\n');
+  const exeHash = createHash('sha256').update(await readFile(processInfo.executable)).digest('hex');
+  const manifest = { magdaVersion: MAGDA_VERSION, apiVersion: (description.structuredContent as Record<string, unknown>).apiVersion, capturedAt: new Date().toISOString(), authority: 'live-magda', verified: true, platform: 'win32-x64', upstreamTag: 'v0.20.2', upstreamCommit: '2917d82cacf4145d57550f96d8829fa25bf6dbf7', researchCommit: 'd637460b8a7e29d73a51aabfe980a787b98b47fa', executableSha256: exeHash, catalogSha256: createHash('sha256').update(serialized).digest('hex'), counts: { tools: tools.tools.length, resources: resources.resources.length, templates: templates.resourceTemplates.length }, protocolVersions: PROTOCOL_VERSIONS };
+  await writeFile(new URL('manifest.json', dir), JSON.stringify(manifest, null, 2) + '\n');
+  console.log(JSON.stringify(manifest, null, 2));
+} finally { await client.close(); }

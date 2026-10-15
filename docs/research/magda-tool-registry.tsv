@@ -1,0 +1,155 @@
+tool_name	domain	access	required_scope	input_params	output_fields	summary
+automation.addPoint	automation	write	edit	4		Add a point to an automation lane
+automation.clearLane	automation	write	edit	1		Remove all points from an automation lane
+automation.createClip	automation	write	edit	3		Create a clip on a clip-based automation lane
+automation.createLane	automation	write	edit	2		Create an automation lane
+automation.deleteClip	automation	write	edit	1		Delete an automation clip
+automation.deleteLane	automation	write	edit	1		Delete an automation lane and its clips
+automation.duplicateClip	automation	write	edit	1		Duplicate an automation clip after its source
+automation.getClip	automation	read	read	1		Get an automation clip
+automation.getLane	automation	read	read	1		Get an automation lane
+automation.listClips	automation	read	read	1		List automation clips, optionally filtered by lane
+automation.listLanes	automation	read	read			List every automation lane in the project
+automation.moveClip	automation	write	edit	2		Move an automation clip
+automation.resizeClip	automation	write	edit	3		Resize an automation clip from either edge
+automation.setPoints	automation	write	edit	2		Replace every point on an absolute automation lane
+automation.updateClip	automation	write	edit	6		Update automation clip metadata, looping, or points
+chains.create	chains	write	edit	2		Create a chain inside a rack at any nesting depth
+chains.remove	chains	write	edit	1		Remove a chain from a rack at any nesting depth
+chains.update	chains	write	edit	8		Update a chain at any nesting depth
+chordTrack.detect	chordTrack	read	read	4		Detect a structured progression in a MIDI clip range
+chordTrack.ensure	chordTrack	write	edit			Create the singleton chord track when absent
+chordTrack.extract	chordTrack	write	edit	8		Detect and atomically materialise a chord-track progression
+chordTrack.get	chordTrack	read	read			Get the singleton chord track and ordered progression
+chordTrack.replaceProgression	chordTrack	write	edit	4		Replace the chord track's structured progression
+chordTrack.sendToTrack	chordTrack	write	edit	6		Bake an addressed progression to a normal MIDI track
+clips.addMidiEvents	clips	write	edit			Atomically add MIDI events
+clips.addMidiNote	clips	write	edit	5		Add a note to a MIDI clip
+clips.createMidi	clips	write	edit	2		Create a MIDI clip
+clips.delete	clips	write	edit	1		Delete a clip
+clips.deleteMidiEvents	clips	write	edit	2		Atomically delete MIDI events by id
+clips.duplicate	clips	write	edit	2		Duplicate a clip to an arrangement position or session slot
+clips.get	clips	read	read	1		Get one clip
+clips.list	clips	read	read	2		List clips with optional track and view filters
+clips.listMidiEvents	clips	read	read	1		List every expressive MIDI event in a clip
+clips.loadSample	clips	write	edit	2		Load an audio file as a clip, as a drop onto a track does
+clips.move	clips	write	edit	2		Move a clip to an arrangement position or session slot
+clips.quantize	clips	write	edit	4		Quantize a MIDI clip's notes to a beat grid; all notes when noteIndices is absent
+clips.replaceMidiEvents	clips	write	edit			Atomically replace every MIDI event in a clip
+clips.resize	clips	write	edit	3		Resize a clip from its start or end edge
+clips.sliceNotes	clips	write	edit	3		Slice a MIDI clip's notes into equal subdivisions; all notes when noteIndices is absent
+clips.transpose	clips	write	edit	2		Transpose every note in a MIDI clip by semitones
+clips.update	clips	write	edit	4		Update clip name, enabled state, or groove template assignment
+clips.updateAudio	clips	write	edit	9		Update an audio clip's playback mode, source tempo, stretch, reverse, and fades
+clips.updateMidiEvents	clips	write	edit			Atomically update MIDI events by id
+devicePresets.list	devicePresets	read	read	1		List presets for a device by opaque id
+devices.add	devices	write	edit	4	2	Add a device from the catalogue to a track's FX chain or a rack chain
+devices.applyPreset	devices	write	edit	2	2	Apply an opaque preset to an existing device
+devices.catalog	devices	read	read			List devices that can be added, by catalogue id
+devices.list	devices	read	read	1		List safe device and rack graph metadata
+devices.listParameters	devices	read	read	1		List a device's parameters, in real units, with customization flags
+devices.move	devices	write	edit	2		Move a device within its chain
+devices.openEditor	devices	write	edit	1		Open a device's plugin editor window
+devices.remove	devices	write	edit	1		Remove a device
+devices.replace	devices	write	edit	3	3	Atomically replace a device while preserving its chain slot
+devices.setBypassed	devices	write	edit	2		Set a device's bypass state
+devices.setParameter	devices	write	edit	3		Set one device parameter, in real units
+devices.setParameterConfig	devices	write	edit	6		Update a device's saved parameter customization: the visible / mini-mixer / AI-agent selections and the per-plugin AI prompt
+engine.health	engine	read	read		11	Read engine binding, callback load, xruns, and recent problems
+engine.masterCapture.start	engine	control	edit			Capture the true master callback output
+engine.masterCapture.status	engine	read	read		4	Read master-capture capability and activity
+engine.masterCapture.stop	engine	control	edit			Stop and finalise one owned master capture
+engine.renderRange	engine	control	edit	13		Render an explicit project range to an absolute path
+focused.cycleDevice	focused	write	edit	1		Move device focus to the previous or next top-level chain node
+focused.get	focused	read	read			Get the focused device or rack and its macro page
+focused.setMacro	focused	write	edit	2		Write a normalized value to a macro on the focused device
+grooves.list	grooves	read	read			List groove template names
+grooves.upsert	grooves	write	edit	4		Create or replace a groove template; latenessProportions is one entry per grid slot, -1..1 of the slot length
+jobs.cancel	jobs	control	ownership			Cancel one owned asynchronous job
+jobs.get	jobs	read	read			Inspect one asynchronous job owned by this connection
+jobs.list	jobs	read	read			List asynchronous jobs owned by this connection
+macros.link	macros	write	edit	5		Link a macro to an AI-enabled device parameter
+macros.list	macros	read	read	1		List device macros and their links
+macros.setValue	macros	write	edit	3		Set a device macro value
+macros.unlink	macros	write	edit	3		Remove a macro's parameter link
+meters.read	meters	read	read		4	Read one bounded track and master peak snapshot
+midi.listOutputPorts	midi	read	read			List available MIDI output port names
+midi.send	midi	write	hardwaremidi	2		Send one channel message to a MIDI output, as status-first raw bytes
+midi.sendSysEx	midi	write	hardwaremidi	2		Send a SysEx payload to a MIDI output; F0/F7 framing is added
+mods.create	mods	write	edit	16		Create a device modulator
+mods.link	mods	write	edit	5		Link a modulator to an AI-enabled device parameter
+mods.list	mods	read	read	1		List modulators on a device
+mods.remove	mods	write	edit	2		Remove a device modulator
+mods.unlink	mods	write	edit	3		Remove a modulator's parameter link
+mods.update	mods	write	edit	14		Update a device modulator
+pads.clear	pads	write	edit	2		Clear one pad
+pads.create	pads	write	edit	2		Create an empty pad chain
+pads.list	pads	read	read	1		List all 64 slots of a Drum Grid
+pads.setDevice	pads	write	edit	3		Replace a pad voice with a catalogue device
+pads.setSample	pads	write	edit	3		Replace a pad voice with a sampler using a host-local audio file
+pads.swap	pads	write	edit	3		Swap two single-note pads
+pads.update	pads	write	edit	11		Edit pad notes, level, pan, switches, and output bus
+project.close	project	write	edit			Close the current project
+project.get	project	read	read			Get safe project metadata
+project.new	project	write	edit			Create an untitled project
+project.open	project	control	edit	5		Open a project from an absolute path
+project.save	project	write	edit			Save the project to its existing target
+project.saveAs	project	control	edit	3		Save to an absolute path
+project.setLoopRange	project	write	edit	2		Set the project loop range in beats
+project.setTempo	project	write	edit	1		Set the project tempo
+project.setTimeSignature	project	write	edit	2		Set the project time signature
+racks.create	racks	write	edit	3		Create a rack on a track or inside a rack chain
+racks.remove	racks	write	edit	3		Remove a rack at any nesting depth
+racks.setBypassed	racks	write	edit	4		Set rack bypass
+racks.update	racks	write	edit	3		Update a rack at any nesting depth
+routing.endpoints.list	routing	read	read			List safe audio and MIDI routing endpoints
+routing.get	routing	read	read	1		Get one track's audio and MIDI routing
+routing.set	routing	write	edit	5	2	Atomically set track audio and MIDI routes
+selection.get	selection	read	read			Get the current selection
+selection.set	selection	write	edit			Replace the current track, clip, or note selection
+sends.create	sends	write	edit	5		Create an atomic track send
+sends.list	sends	read	read	1		List one track's sends
+sends.remove	sends	write	edit	1		Remove an atomic track send
+sends.update	sends	write	edit	5		Update an atomic track send
+session.armSlotRecording	session	control	session	4		Arm or unarm an empty addressed Session slot
+session.beginPerformanceCapture	session	control	session			Capture launched Session performance into Arrangement as an asynchronous job
+session.beginSlotRecording	session	control	session	3		Begin a queued slot take as an asynchronous job
+session.createScene	session	write	edit	3		Create a durable session scene
+session.deleteScene	session	write	edit	3		Delete a scene with an explicit populated-slot policy
+session.duplicateScene	session	write	edit	2		Duplicate a scene with explicit clip-copy behaviour
+session.get	session	read	read			Get scenes, tracks, and every session slot state
+session.launchClip	session	write	session	1		Launch a session clip
+session.launchScene	session	write	session	1		Launch a session scene
+session.moveScene	session	write	edit	2		Move a session scene by stable id
+session.recordingCapabilities	session	read	read			Inspect Session recording support and stop policy
+session.returnToArrangement	session	control	session	1		Return one or every track to arrangement playback
+session.stopAll	session	write	session			Stop all session clips
+session.stopClip	session	write	session	1		Stop a session clip
+session.stopPerformanceCapture	session	write	session	1		Stop and commit a Session performance capture
+session.stopSlotRecording	session	write	session	1		Stop a slot take and complete its recording job
+session.stopTrack	session	write	session	1		Stop the active session clip on a track
+session.updateClipSettings	session	write	edit	6		Atomically update session clip launch behaviour
+session.updateScene	session	write	edit	3		Atomically update session scene metadata
+sidechains.get	sidechains	read	read	1		Inspect one device or rack sidechain and its capabilities
+sidechains.list	sidechains	read	read	1		List device and rack sidechains and their capabilities
+sidechains.set	sidechains	write	edit	8	2	Atomically configure or clear one device or rack sidechain
+system.describe	system	read	read		2	List the API version and every available operation
+trackPresets.list	trackPresets	read	read			List saved track-chain presets by opaque id
+tracks.applyPreset	tracks	write	edit	2	3	Apply an opaque chain preset to an existing track
+tracks.create	tracks	write	edit	2		Create a track
+tracks.createFromPreset	tracks	write	edit	1	2	Create a track from a saved track-chain preset
+tracks.delete	tracks	write	edit	1		Delete a track
+tracks.freeze	tracks	control	edit			Freeze a track: render it offline and play the render in its place
+tracks.get	tracks	read	read	1		Get one track
+tracks.group	tracks	write	edit	2		Group tracks under a new group track
+tracks.list	tracks	read	read			List tracks
+tracks.move	tracks	write	edit	2		Move a track to a one-based position in the track list
+tracks.unfreeze	tracks	write	edit			Unfreeze a track so its devices play live again
+tracks.update	tracks	write	edit	9		Update track mixer, display, or input state
+transport.get	transport	read	read			Get transport state
+transport.play	transport	write	transport			Start playback
+transport.seek	transport	write	transport	1		Seek the transport in beats
+transport.seekRelative	transport	write	transport	2		Move the transport by beats or bars, clamped at zero
+transport.setLoopEnabled	transport	write	transport	1		Set transport loop state
+transport.setRecording	transport	write	transport	1		Set recording state
+transport.stop	transport	write	transport			Stop playback
