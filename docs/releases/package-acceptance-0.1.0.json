@@ -1,0 +1,33 @@
+{
+  "version": "0.1.0",
+  "passed": true,
+  "completedAt": "2026-10-15T09:07:04.007Z",
+  "platform": "win32-x64",
+  "node": "v24.15.0",
+  "tarball": "dionysusdwi-magda-mcp-0.1.0.tgz",
+  "sha256": "4211ee596b3ece10a33cb0cf7ea5275156e60cfd4243784f358381adff7e6d13",
+  "files": 38,
+  "cleanInstallOutsideRepository": true,
+  "checks": [
+    {
+      "name": "installed-offline-stdio",
+      "passed": true,
+      "tools": 156,
+      "state": "offline"
+    },
+    {
+      "name": "installed-config-absolute-paths",
+      "passed": true
+    },
+    {
+      "name": "installed-cli-exit-codes",
+      "passed": true
+    },
+    {
+      "name": "installed-live-stdio",
+      "passed": true,
+      "tools": 156,
+      "state": "connected"
+    }
+  ]
+}
